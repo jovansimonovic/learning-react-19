@@ -37,3 +37,17 @@ export const updateSearchCount = async (searchTerm, movie) => {
     console.error(error);
   }
 };
+
+export const getTrendingMovies = async () => {
+  try {
+    // uses Appwrite SDK to get the top 5 trending movies
+    const result = await database.listDocuments(DATABASE_ID, COLLECTION_ID, [
+      Query.orderDesc("count"),
+      Query.limit(5),
+    ]);
+    
+    return result.documents;
+  } catch (error) {
+    console.error(error);
+  }
+};

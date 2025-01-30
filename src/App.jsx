@@ -62,10 +62,25 @@ const App = () => {
     }
   };
 
+  // fetches trending movies
+  const fetchTrendingMovies = async () => {
+    try {
+      const trendingMovies = await getTrendingMovies();
+      setTrendingMovies(trendingMovies);
+    } catch (error) {
+      console.error(`Error fetching trending movies: ${error}`);
+    }
+  };
+
   // loads fetched movies on component mount
   useEffect(() => {
     fetchMovies(debouncedSearchTerm);
   }, [debouncedSearchTerm]);
+
+  // loads fetched trending movies on component mount
+  useEffect(() => {
+    fetchTrendingMovies();
+  }, []);
 
   return (
     <main>
@@ -79,6 +94,19 @@ const App = () => {
           </h1>
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         </header>
+        {trendingMovies.length > 0 && (
+          <section className="trending">
+            <h2>Trending Movies</h2>
+            <ul>
+              {trendingMovies.map((movie, index) => (
+                <li key={movie.$id}>
+                  <p>{index + 1}</p>
+                  <img src={movie.poster_url} alt={movie.title} />
+                </li>
+              ))}
+            </ul>
+          </section>
+        )}
         <section className="all-movies">
           <h2 className="mt-12">All Movies</h2>
           {isLoading ? (
