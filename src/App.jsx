@@ -109,13 +109,17 @@ const App = () => {
           </section>
         )}
         <section className="all-movies">
-          <h2 className="mt-12">All Movies</h2>
+          <h2>All Movies</h2>
           {isLoading ? (
             <span className="flex justify-center">
               <LoadingSpinner />
             </span>
           ) : error ? (
             <p className="text-red-500">{error}</p>
+          ) : movies.length === 0 ? (
+            <p className="text-white text-3xl font-semibold text-center">
+              No Movies Found
+            </p>
           ) : (
             <ul>
               {movies.map((movie) => (
