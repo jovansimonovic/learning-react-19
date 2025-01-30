@@ -3,11 +3,10 @@ import Search from "./components/Search";
 import LoadingSpinner from "./components/LoadingSpinner";
 import MovieCard from "./components/MovieCard";
 import { useDebounce } from "react-use";
+import { updateSearchCount } from "./appwrite.js";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
-
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
-
 const API_OPTIONS = {
   methor: "GET",
   headers: {
@@ -27,6 +26,7 @@ const App = () => {
   // requests by waiting the user to stop typing for 500ms
   useDebounce(() => setDebouncedSearchTerm(searchTerm), 500, [searchTerm]);
 
+  // fetches movies from an API
   const fetchMovies = async (query = "") => {
     setIsLoading(true);
     setError(null);
@@ -50,6 +50,10 @@ const App = () => {
       }
 
       setMovies(data.results || []);
+
+      if (query && data.results.length > 0) {
+        await updateSearchCount(query, data.results[0]);
+      }
     } catch (error) {
       setError("Error fetching movies. Please try again later");
       console.error(`Error fetching movies: ${error}`);
@@ -58,6 +62,7 @@ const App = () => {
     }
   };
 
+  // loads fetched movies on component mount
   useEffect(() => {
     fetchMovies(debouncedSearchTerm);
   }, [debouncedSearchTerm]);
