@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link, useParams } from "react-router";
-import LoadingSpinner from "./components/LoadingSpinner";
-import { formatDate } from "./utils";
+import LoadingSpinner from "../../components/LoadingSpinner";
+import { formatDate } from "../../utils";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
