@@ -20,8 +20,6 @@ const MovieDetails = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  console.log(movieDetails);
-
   // fetches movie details
   const fetchMovieDetails = async () => {
     setIsLoading(true);
@@ -115,13 +113,19 @@ const MovieDetails = () => {
                 <br />
                 {movieDetails.production_companies?.map((company) => (
                   <>
-                    <span className="text-lg">{company.name}</span> <br />
+                    <span key={company.id} className="text-lg">
+                      {company.name}
+                    </span>{" "}
+                    <br />
                   </>
                 ))}
               </div>
               <div className=" flex flex-row gap-2 flex-wrap">
                 {movieDetails.genres?.map((genre) => (
-                  <span className="bg-indigo-700 px-2 py-1 rounded-full">
+                  <span
+                    key={genre.id}
+                    className="bg-indigo-700 px-2 py-1 rounded-full"
+                  >
                     {genre.name}
                   </span>
                 ))}
