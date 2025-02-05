@@ -127,7 +127,7 @@ const MovieDetails = () => {
                       genre.name
                     )}`}
                   >
-                    <span className="bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-full inline-flex">
+                    <span className="genre-button">
                       {genre.name}
                     </span>
                   </Link>
