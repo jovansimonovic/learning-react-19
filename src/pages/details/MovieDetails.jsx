@@ -68,7 +68,7 @@ const MovieDetails = () => {
         ) : error ? (
           <section>
             <div className="h-dvh flex flex-col justify-center items-center">
-              <p className="text-center text-red-500 text-2xl mb-8">{error}</p>
+              <p className="error-message mb-8">{error}</p>
               <Link to={"/"}>
                 <button
                   type="button"
@@ -109,25 +109,28 @@ const MovieDetails = () => {
                 <p> {formatDate(movieDetails.release_date)}</p>
               </div>
               <div className="mb-4">
-                <span className="text-xl font-semibold">Directed by:</span>{" "}
-                <br />
-                {movieDetails.production_companies?.map((company) => (
-                  <>
+                <span className="text-2xl font-semibold">Directed by:</span>
+                <div className="flex flex-col">
+                  {movieDetails.production_companies?.map((company) => (
                     <span key={company.id} className="text-lg">
                       {company.name}
-                    </span>{" "}
-                    <br />
-                  </>
-                ))}
+                    </span>
+                  ))}
+                </div>
               </div>
-              <div className=" flex flex-row gap-2 flex-wrap">
+              <span className="text-2xl font-semibold">Genres:</span>
+              <div className=" flex flex-row gap-2 flex-wrap mt-4">
                 {movieDetails.genres?.map((genre) => (
-                  <span
+                  <Link
                     key={genre.id}
-                    className="bg-indigo-700 px-2 py-1 rounded-full"
+                    to={`/discover/${genre.id}/${encodeURIComponent(
+                      genre.name
+                    )}`}
                   >
-                    {genre.name}
-                  </span>
+                    <span className="bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-full">
+                      {genre.name}
+                    </span>
+                  </Link>
                 ))}
               </div>
             </div>
