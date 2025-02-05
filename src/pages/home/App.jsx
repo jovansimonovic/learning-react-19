@@ -118,7 +118,7 @@ const App = () => {
               <LoadingSpinner />
             </span>
           ) : error ? (
-            <p className="text-red-500">{error}</p>
+            <p className="error-message">{error}</p>
           ) : movies.length === 0 ? (
             <p className="text-white text-3xl font-semibold text-center">
               No Movies Found
