@@ -119,7 +119,7 @@ const MovieDetails = () => {
                 </div>
               </div>
               <span className="text-2xl font-semibold">Genres:</span>
-              <div className=" flex flex-row gap-2 flex-wrap mt-4">
+              <div className="flex flex-row gap-2 flex-wrap mt-2">
                 {movieDetails.genres?.map((genre) => (
                   <Link
                     key={genre.id}
@@ -127,7 +127,7 @@ const MovieDetails = () => {
                       genre.name
                     )}`}
                   >
-                    <span className="bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-full">
+                    <span className="bg-indigo-700 hover:bg-indigo-800 px-4 py-2 rounded-full inline-flex">
                       {genre.name}
                     </span>
                   </Link>
