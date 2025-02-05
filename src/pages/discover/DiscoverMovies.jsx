@@ -1,8 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router";
+import { Link, useParams } from "react-router";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import MovieCard from "../../components/MovieCard";
 import Pagination from "../../components/Pagination";
+import BackToTop from "../../components/BackToTop";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -66,7 +67,7 @@ const DiscoverMovies = () => {
           Discover More <span className="text-gradient">{genreName}</span>{" "}
           Movies
         </h1>
-        <section className="all-movies mt-8 w-full">
+        <section className="all-movies mt-8 mb-20 w-full">
           {isLoading ? (
             <span className="flex justify-center">
               <LoadingSpinner />
@@ -97,6 +98,7 @@ const DiscoverMovies = () => {
             </>
           )}
         </section>
+        <BackToTop />
       </div>
     </main>
   );
