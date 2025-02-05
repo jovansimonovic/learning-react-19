@@ -5,6 +5,7 @@ import MovieCard from "../../components/MovieCard.jsx";
 import { useDebounce } from "react-use";
 import { getTrendingMovies, updateSearchCount } from "../../appwrite.js";
 import { Link } from "react-router";
+import Carousel from "../../components/Carousel.jsx";
 
 const API_BASE_URL = "https://api.themoviedb.org/3";
 const API_KEY = import.meta.env.VITE_TMDB_API_KEY;
@@ -19,6 +20,7 @@ const API_OPTIONS = {
 const App = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [movies, setMovies] = useState([]);
+  const [genres, setGenres] = useState([]);
   const [trendingMovies, setTrendingMovies] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
@@ -64,7 +66,33 @@ const App = () => {
     }
   };
 
-  // fetches trending movies
+  // fetches genres from an API
+  const fetchGenres = async () => {
+    try {
+      const endpoint = `${API_BASE_URL}/genre/movie/list?api_key=${API_KEY}`;
+      const response = await fetch(endpoint, API_OPTIONS);
+
+      if (!response.ok) {
+        throw new Error("Failed to fetch genres");
+      }
+
+      const data = await response.json();
+
+      if (data.Response === "False") {
+        setGenres([]);
+        setError(data.Error || "Failed to fetch genres");
+        return;
+      }
+
+      setGenres(data.genres || []);
+    } catch (error) {
+      console.error(`Error fetching genres: ${error}`);
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
+  // fetches trending movies from database
   const fetchTrendingMovies = async () => {
     try {
       const trendingMovies = await getTrendingMovies();
@@ -79,8 +107,9 @@ const App = () => {
     fetchMovies(debouncedSearchTerm);
   }, [debouncedSearchTerm]);
 
-  // loads fetched trending movies on component mount
+  // loads fetched trending movies and genres on component mount
   useEffect(() => {
+    fetchGenres();
     fetchTrendingMovies();
   }, []);
 
@@ -95,6 +124,9 @@ const App = () => {
             Without the Hassle
           </h1>
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <div className="mt-6 max-w-3xl mx-auto">
+            <Carousel genres={genres} />
+          </div>
         </header>
         {trendingMovies.length > 0 && (
           <section className="trending">
