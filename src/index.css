@@ -140,6 +140,10 @@
       @apply text-gray-100 font-medium text-base;
     }
   }
+
+  .error-message {
+    @apply text-center text-red-500 text-2xl
+  }
 }
 
 @utility text-gradient {
