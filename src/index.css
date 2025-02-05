@@ -77,6 +77,10 @@
     }
   }
 
+  .button {
+    @apply bg-indigo-700 hover:bg-indigo-800 p-2 rounded cursor-pointer;
+  }
+
   .search {
     @apply w-full bg-light-100/5 px-4 py-3 rounded-lg mt-10 max-w-3xl mx-auto;
 
@@ -142,7 +146,7 @@
   }
 
   .error-message {
-    @apply text-center text-red-500 text-2xl
+    @apply text-center text-red-500 text-2xl;
   }
 }
 
