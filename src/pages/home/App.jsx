@@ -124,7 +124,10 @@ const App = () => {
             Without the Hassle
           </h1>
           <Search searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <div className="mt-6 max-w-3xl mx-auto">
+          <div className="mt-4 max-w-3xl mx-auto">
+            <p className="text-white text-lg font-semibold mb-2">
+              Or browse movies by desired genre:
+            </p>
             <Carousel genres={genres} />
           </div>
         </header>
