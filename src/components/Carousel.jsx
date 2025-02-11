@@ -3,7 +3,7 @@ import { Link } from "react-router";
 
 const Carousel = ({ genres }) => {
   return (
-    <div className="flex flex-row items-center gap-x-2 overflow-x-scroll whitespace-nowrap hide-scrollbar">
+    <div className="flex flex-row lg:flex-wrap items-center gap-2 overflow-x-scroll whitespace-nowrap hide-scrollbar">
       {genres.map((genre) => (
         <Link
           key={genre.id}
